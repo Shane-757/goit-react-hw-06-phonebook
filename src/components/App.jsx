@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
 import PhoneApp from './PhoneApp/PhoneApp';
 
 export const App = () => {
-  const [contacts, setContacts] = useState(PhoneApp.defaultProps.initialContacts);
-  const [filter, setFilter] = useState('');
-
   return (
     <div
       style={{
@@ -16,12 +12,7 @@ export const App = () => {
         color: '#010101',
       }}
     >
-      <PhoneApp
-        contacts={contacts}
-        setContacts={setContacts}
-        filter={filter}
-        setFilter={setFilter}
-      />
+      <PhoneApp initialContacts={PhoneApp.defaultProps.initialContacts} />
     </div>
   );
 };
