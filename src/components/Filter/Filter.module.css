@@ -1,11 +1,12 @@
-.filterTitle{
+.filterTitle {
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 10px;
     margin-top: 0;
     text-align: center;
 }
-.filterInput{
+
+.filterInput {
     display: block;
     margin-left: auto;
     margin-right: auto;

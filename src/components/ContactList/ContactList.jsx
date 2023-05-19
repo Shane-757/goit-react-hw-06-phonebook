@@ -2,17 +2,23 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { deleteContact } from '../PhonebookSlice/PhonebookSlice';
 import styles from './ContactList.module.css';
-import PropTypes from 'prop-types';
 
 const ContactList = () => {
   const dispatch = useDispatch();
   const contacts = useSelector((state) => state.phonebook.contacts);
   const filter = useSelector((state) => state.phonebook.filter);
+  const sort = useSelector((state) => state.phonebook.sort);
 
-  const filteredContacts = contacts.filter((contact) =>
+   let filteredContacts = contacts.filter((contact) =>
     contact.name.toLowerCase().includes(filter.toLowerCase()) ||
     contact.number.includes(filter)
   );
+
+   if (sort === 'asc') {
+    filteredContacts = filteredContacts.sort((a, b) => a.name.localeCompare(b.name));
+  } else if (sort === 'desc') {
+    filteredContacts = filteredContacts.sort((a, b) => b.name.localeCompare(a.name));
+  }
 
   return (
     <div>
@@ -34,17 +40,6 @@ const ContactList = () => {
          </ul>
     </div>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  onDelete: PropTypes.func.isRequired,
 };
 
 export default ContactList;

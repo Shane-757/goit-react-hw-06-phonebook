@@ -9,6 +9,7 @@ const initialState = {
     { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
   ],
   filter: '',
+  sort: 'asc',
 };
 
 const phonebookSlice = createSlice({
@@ -29,9 +30,12 @@ const phonebookSlice = createSlice({
     changeFilter: (state, action) => {
       state.filter = action.payload;
     },
+    changeSort: (state, action) => {
+      state.sort = action.payload;
+    },
   },
 });
 
-export const { addContact, deleteContact, changeFilter } = phonebookSlice.actions;
+export const { addContact, deleteContact, changeFilter, changeSort } = phonebookSlice.actions;
 
 export default phonebookSlice.reducer;

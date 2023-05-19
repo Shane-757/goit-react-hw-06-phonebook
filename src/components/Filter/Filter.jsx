@@ -1,16 +1,20 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeFilter } from '../PhonebookSlice/PhonebookSlice';
+import { changeFilter, changeSort } from '../PhonebookSlice/PhonebookSlice';
 import styles from './Filter.module.css';
-import PropTypes from 'prop-types';
 
 const Filter = () => {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.phonebook.filter);
+  const sort = useSelector((state) => state.phonebook.sort);
 
   const handleFilterChange = (event) => {
     const filterValue = event.target.value;
     dispatch(changeFilter(filterValue));
+  };
+
+  const handleSortChange = (event) => {
+    dispatch(changeSort(event.target.value));
   };
 
   return (
@@ -23,13 +27,12 @@ const Filter = () => {
         value={filter}
         onChange={handleFilterChange}
       />
+      <select className={styles.filterInput} value={sort} onChange={handleSortChange}>
+        <option value="asc">Alphabetical</option>
+        <option value="desc">Reverse Alphabetical</option>
+      </select>
     </>
   );
-};
-
-Filter.propTypes = {
-  filter: PropTypes.string.isRequired,
-  setFilter: PropTypes.func.isRequired,
 };
 
 export default Filter;
