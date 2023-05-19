@@ -1,11 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeFilter } from '../PhonebookSlice/PhonebookSlice';
 import styles from './Filter.module.css';
+import PropTypes from 'prop-types';
 
-const Filter = ({ filter, setFilter }) => {
+const Filter = () => {
+  const dispatch = useDispatch();
+  const filter = useSelector((state) => state.phonebook.filter);
+
   const handleFilterChange = (event) => {
     const filterValue = event.target.value;
-    setFilter(filterValue);
+    dispatch(changeFilter(filterValue));
   };
 
   return (

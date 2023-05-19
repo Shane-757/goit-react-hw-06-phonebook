@@ -1,25 +1,40 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteContact } from '../PhonebookSlice/PhonebookSlice';
 import styles from './ContactList.module.css';
+import PropTypes from 'prop-types';
 
-const ContactList = ({ contacts, onDelete }) => (
-  <div>
-    {contacts.length > 0 && <h2 className={styles.contactTitle}>Contacts</h2>}
-    <ul>
-      {contacts.map((contact) => (
-        <li className={styles.contactInfo} key={contact.id}>
-          {contact.name}: {contact.number}
-          <button
-            className={styles.deleteButton}
-            onClick={() => onDelete(contact.id)}
-          >
-            Delete
-          </button>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+const ContactList = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector((state) => state.phonebook.contacts);
+  const filter = useSelector((state) => state.phonebook.filter);
+
+  const filteredContacts = contacts.filter((contact) =>
+    contact.name.toLowerCase().includes(filter.toLowerCase()) ||
+    contact.number.includes(filter)
+  );
+
+  return (
+    <div>
+      {filteredContacts.length > 0 && (
+        <h2 className={styles.contactTitle}>Contacts</h2>
+      )}
+      <ul>
+        {filteredContacts.map((contact) => (
+          <li className={styles.contactInfo} key={contact.id}>
+            {contact.name}: {contact.number}
+            <button
+              className={styles.deleteButton}
+              onClick={() => dispatch(deleteContact(contact.id))}
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+         </ul>
+    </div>
+  );
+};
 
 ContactList.propTypes = {
   contacts: PropTypes.arrayOf(

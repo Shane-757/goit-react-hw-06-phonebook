@@ -1,18 +1,25 @@
+import { Provider } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '../components/Store/Store';
 import PhoneApp from './PhoneApp/PhoneApp';
 
 export const App = () => {
   return (
-    <div
-      style={{
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: 40,
-        color: '#010101',
-      }}
-    >
-      <PhoneApp initialContacts={PhoneApp.defaultProps.initialContacts} />
-    </div>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <div
+          style={{
+            height: '100vh',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            fontSize: 40,
+            color: '#010101',
+          }}
+        >
+          <PhoneApp />
+        </div>
+      </PersistGate>
+    </Provider>
   );
 };

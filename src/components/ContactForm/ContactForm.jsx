@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
+import { useSelector, useDispatch } from 'react-redux';
+import { addContact } from '../PhonebookSlice/PhonebookSlice';
 import styles from './ContactForm.module.css';
 
-const ContactForm = ({ contacts, setContacts }) => {
+
+const ContactForm = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector((state) => state.phonebook.contacts); // <-- Moved here
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -19,24 +22,17 @@ const ContactForm = ({ contacts, setContacts }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    
-    const duplicateContact = contacts.find(
+    const existingContact = contacts.find(
       (contact) => contact.name.toLowerCase() === name.toLowerCase()
     );
 
-    if (duplicateContact) {
-      alert(`${name} is already in the phonebook.`);
-      return;
+    if (existingContact) {
+      alert(`${name} is already in contacts.`);
+    } else {
+      dispatch(addContact(name, number));
+      setName('');
+      setNumber('');
     }
-
-    const newContact = {
-      id: nanoid(),
-      name: name,
-      number: number,
-    };
-    setContacts((prevState) => [...prevState, newContact]);
-    setName('');
-    setNumber('');
   };
 
   return (
@@ -70,9 +66,6 @@ const ContactForm = ({ contacts, setContacts }) => {
   );
 };
 
-ContactForm.propTypes = {
-  contacts: PropTypes.array.isRequired,
-  setContacts: PropTypes.func.isRequired,
-};
+
 
 export default ContactForm;
