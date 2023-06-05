@@ -1,7 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
-import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
+import storage from 'redux-persist/lib/storage'; 
 import { persistReducer, persistStore } from 'redux-persist';
-import phonebookReducer from '../PhonebookSlice/PhonebookSlice';
+import phonebookReducer from 'reducers/PhonebookReducer'; 
 
 const persistConfig = {
   key: 'root',
@@ -14,6 +14,11 @@ export const store = configureStore({
   reducer: {
     phonebook: persistedReducer,
   },
+  middleware: getDefaultMiddleware({
+    serializableCheck: {
+      ignoredActions: ['persist/PERSIST'],
+    },
+  }),
 });
 
 export const persistor = persistStore(store);

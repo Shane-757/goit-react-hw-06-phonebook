@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact } from '../PhonebookSlice/PhonebookSlice';
+import { addContact } from 'Actions/phonebookActions';
 import styles from './ContactForm.module.css';
 
 
@@ -42,7 +42,7 @@ const ContactForm = () => {
         <input
           type="text"
           name="name"
-          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+         pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan."
           required
           value={name}
@@ -65,7 +65,5 @@ const ContactForm = () => {
     </form>
   );
 };
-
-
 
 export default ContactForm;
