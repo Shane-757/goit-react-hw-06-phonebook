@@ -1,7 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage'; 
 import { persistReducer, persistStore } from 'redux-persist';
-import phonebookReducer from 'reducers/PhonebookReducer'; 
+import phonebookReducer from 'Redux/reducers/PhonebookReducer'; 
 
 const persistConfig = {
   key: 'root',

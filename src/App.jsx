@@ -1,6 +1,6 @@
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './Store/Store';
+import { store, persistor } from './Redux/Store/Store';
 import PhoneApp from '../src/Pages/PhoneApp';
 
 export const App = () => {

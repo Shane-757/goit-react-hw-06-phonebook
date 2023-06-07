@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeFilter, changeSort } from 'Actions/phonebookActions';
+import { changeFilter, changeSort } from 'Redux/Actions/phonebookActions';
 import styles from './Filter.module.css';
 
 const Filter = () => {
